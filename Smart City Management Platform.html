@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Application</title>
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Hidden Class */
+        .hidden {
+            display: none;
+        }
+
+        /* Smooth Transition */
+        * {
+            transition: all 0.5s ease;
+        }
+
+        /* Login and Dashboard Containers */
+        .login-container, .dashboard-container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 320px;
+            text-align: center;
+            margin: 100px auto;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .dashboard-container {
+            width: 750px;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #3A98B9;
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+        }
+
+        /* Input Fields */
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #3A98B9;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #327994;
+        }
+
+        /* Role Button Styling */
+        .role-button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Navigation Menu */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        /* Section Styling */
+        section {
+            display: none;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .active-section {
+            display: block;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3A98B9;
+            color: white;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #3A98B9;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Section -->
+    <div class="login-container" id="login-container">
+        <h2>Smart City Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" name="username" placeholder="Username" required><br>
+            <input type="password" id="password" name="password" placeholder="Password" required><br>
+            <div class="role-button">
+                <button type="button" onclick="adminLogin()">Admin Login</button>
+                <button type="button" onclick="userLogin()">User Login</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="dashboard-container hidden" id="dashboard-container">
+        <header>
+            Smart City Management Platform
+        </header>
+
+        <nav id="nav-container">
+            <a id="admin-link" onclick="showSection('admin')" class="hidden">Admin Section</a>
+            <a id="user-link" onclick="showSection('user')" class="hidden">User Section</a>
+        </nav>
+
+        <main>
+            <!-- Admin Section -->
+            <section id="admin" class="admin-section">
+                <h2>Admin Dashboard</h2>
+                <p>As an admin, you can manage the city's information, update public services details, and monitor infrastructure.</p>
+                
+                <form>
+                    <h3>Update Public Services</h3>
+                    <select>
+                        <option value="Public Transportation">Public Transportation</option>
+                        <option value="Waste Management">Waste Management</option>
+                        <option value="Water Supply">Water Supply</option>
+                        <option value="Electricity Services">Electricity Services</option>
+                        <option value="Public Parks">Public Parks</option>
+                    </select>
+                    <textarea placeholder="Service Description" rows="4" required></textarea>
+                    <select>
+                        <option value="Active">Active</option>
+                        <option value="Under Maintenance">Under Maintenance</option>
+                        <option value="Scheduled for Upgrade">Scheduled for Upgrade</option>
+                        <option value="Temporarily Unavailable">Temporarily Unavailable</option>
+                        <option value="Operational with Limited Capacity">Operational with Limited Capacity</option>
+                    </select>
+                    <button type="submit">Update Service</button>
+                </form>
+
+                <form>
+                    <h3>Monitor Infrastructure</h3>
+                    <select>
+                        <option value="Roads and Highways">Roads and Highways</option>
+                        <option value="Bridges and Tunnels">Bridges and Tunnels</option>
+                        <option value="Sewage Systems">Sewage Systems</option>
+                        <option value="Public Libraries">Public Libraries</option>
+                        <option value="Traffic Lights">Traffic Lights</option>
+                    </select>
+                    <textarea placeholder="Infrastructure Condition" rows="4" required></textarea>
+                    <button type="submit">Update Infrastructure</button>
+                </form>
+
+                <h3>Reported Issues</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Issue Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Broken Streetlight</td>
+                            <td>The streetlight on the main road has been broken for 2 days.</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>Water Leakage in Main Pipe</td>
+                            <td>There is a water leakage near the school, causing a small flood.</td>
+                            <td>Resolved</td>
+                        </tr>
+                        <tr>
+                            <td>Pothole on Main Road</td>
+                            <td>Large pothole near the shopping district, causing traffic delays.</td>
+                            <td>Under Review</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- User Section -->
+            <section id="user" class="user-section">
+                <h2>User Access</h2>
+                <p>Users can access city details, report issues, and provide feedback on services and amenities.</p>
+
+                <!-- Search City Details -->
+                <form>
+                    <h3>Search City Details</h3>
+                    <input type="text" list="services" placeholder="Enter service or infrastructure to search" required>
+                    <datalist id="services">
+                        <option value="Ippatam">
+                        <option value="Mellempudi">
+                        <option value="Gundimeda">
+                        <option value="Vaddeswaram">
+                        <option value="Mangalagiri">
+                    </datalist>
+                    <button type="submit">Search</button>
+                </form>
+
+                <!-- Report an Issue -->
+                <form>
+                    <h3>Report an Issue</h3>
+                    <input type="text" list="issues" placeholder="Issue Title" required>
+                    <datalist id="issues">
+                        <option value="Broken Streetlight">
+                        <option value="Water Leakage in Main Pipe">
+                        <option value="Pothole on Main Road">
+                        <option value="Overflowing Trash Bins">
+                        <option value="Noisy Construction Work">
+                    </datalist>
+                    <textarea placeholder="Describe the issue" rows="4" required></textarea>
+                    <button type="submit">Report Issue</button>
+                </form>
+
+                <!-- Provide Feedback -->
+                <form>
+                    <h3>Provide Feedback</h3>
+                    <textarea list="feedback" placeholder="Enter your feedback" rows="4" required></textarea>
+                    <datalist id="feedback">
+                        <option value="The public parks are well-maintained, but adding more benches would make them even better.">
+                        <option value="Bus services are generally reliable, but weekend schedules need improvement for more frequent rides.">
+                        <option value="The city's recycling program is excellent, but we need more recycling bins around the shopping district.">
+                        <option value="I appreciate the quick response to electricity outages, but notifications could be better organized.">
+                        <option value="The new playground equipment is great, but the area could use more shaded spots for parents to sit.">
+                    </datalist>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+            </section>
+        </main>
+
+
+
+        
+        
+    </div>
+
+    <script>
+        function adminLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === "admin" && password === "admin123") {
+                document.getElementById("login-container").classList.add("hidden");
+                document.getElementById("dashboard-container").classList.remove("hidden");
+                document.getElementById("admin-link").classList.remove("hidden");
+                showSection('admin');
+            } else {
+                alert("Invalid Admin Credentials");
+            }
+        }
+
+        function userLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === "user" && password === "user123") {
+                document.getElementById("login-container").classList.add("hidden");
+                document.getElementById("dashboard-container").classList.remove("hidden");
+                document.getElementById("user-link").classList.remove("hidden");
+                showSection('user');
+            } else {
+                alert("Invalid User Credentials");
+            }
+        }
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('section');
+            sections.forEach(function(section) {
+                section.classList.remove('active-section');
+            });
+            var activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active-section');
+        }
+    </script>
+
+</body>
+</html>
